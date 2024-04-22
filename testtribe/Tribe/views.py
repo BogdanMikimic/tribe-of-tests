@@ -1,3 +1,9 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def homepage(request):
+    return render(request, 'Tribe/homepage.html')
+
+
+def img_credits(request):
+    return render(request, 'Tribe/credits.html')

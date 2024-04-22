@@ -1,0 +1,18 @@
+/* #0A5411 green */
+/* #F7760B orange*/
+
+h1 {
+    color:#F7760B;
+}
+
+a{
+    color: #0A5411;
+}
+
+.img_medium {
+    width: 64px;
+}
+.img_small {
+    width:32px;
+    display:inline;
+}
