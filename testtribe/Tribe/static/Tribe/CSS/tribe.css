@@ -1,6 +1,13 @@
 /* #0A5411 green */
 /* #F7760B orange*/
 
+body{
+  background-image: url('../IMG/Tiles/jungle_tile2.png');
+  background-repeat: repeat;
+  background-position: top left;
+  background-size: 50% auto;
+}
+
 h1 {
     color:#F7760B;
 }
@@ -15,4 +22,19 @@ a{
 .img_small {
     width:32px;
     display:inline;
+}
+
+.img_large{
+    width:64px;
+}
+.img_x_large{
+    width:128px;
+}
+
+.img_xx_large{
+    width:256px;
+}
+
+img_xxx_large{
+    width:562px;
 }
