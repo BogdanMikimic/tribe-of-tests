@@ -1,15 +1,16 @@
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 import unittest
 
 
 class NewVisitorTest(unittest.TestCase):
-    def setUp(self) -> None:
+    def setUp(self) -> None:  # This code runs once BEFORE EACH test
         self.browser = webdriver.Firefox()
 
-    def tearDown(self) -> None:
+    def tearDown(self) -> None:  # This code runs once AFTER EACH test
         self.browser.quit()
 
-    def test_can_start_a_list_and_retrieve_it_later(self):
+    def test_can_start_a_list_and_retrieve_it_later(self):  # this is a test (the name starts with test_)
         # David has heard about this new cool game. He goes to check out it's homepage
         self.browser.get('http://localhost:8000')
 
@@ -17,10 +18,8 @@ class NewVisitorTest(unittest.TestCase):
         self.assertIn('Tribe Home', self.browser.title)
         # self.fail('Finish the test')
 
-        # He clicks on the main house and reads about the
 
-
-if __name__=='__main__':
+if __name__ == '__main__':
     unittest.main(warnings='ignore')
 
 
