@@ -6,6 +6,47 @@ body{
   background-repeat: repeat;
   background-position: top left;
   background-size: 50% auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.header_img {
+    width: 100%;
+ }
+
+.div_center{
+    display: flex;
+    flex-direction: column;
+    width:50%;
+    border: solid 2px #F7760B;
+    border-radius: 24px;
+    margin: 5px;
+}
+
+.div_house_row{
+    display:flex;
+    border: solid 1px white;
+}
+
+.div_house_left{
+    border: solid 1px red;
+    width: 25%;
+}
+
+.div_data_right{
+    width: 75%;
+}
+
+.img_homepage_house{
+     width:100%;
+}
+
+
+
+.div_house_image_left{
+    border: solid 2px #F7760B;
 }
 
 h1 {
