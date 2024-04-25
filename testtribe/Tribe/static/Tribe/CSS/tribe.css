@@ -2,7 +2,7 @@
 /* #F7760B orange*/
 
 body{
-  background-image: url('../IMG/Tiles/jungle_tile2.png');
+  background-image: url('../IMG/Tiles/jungle_tile_dark2_blur.jpg');
   background-repeat: repeat;
   background-position: top left;
   background-size: 50% auto;
@@ -12,26 +12,34 @@ body{
   align-items: center;
 }
 
+p{
+    color:#F7760B
+}
+
 .header_img {
     width: 100%;
  }
 
 .div_center{
+    background-image: url('../IMG/Tiles/jungle_tile_black_and_white_blur.jpg');
+    background-repeat: repeat;
+    background-position: top left;
+    background-size: 35% auto;
     display: flex;
     flex-direction: column;
     width:50%;
     border: solid 2px #F7760B;
     border-radius: 24px;
     margin: 5px;
+
 }
 
 .div_house_row{
     display:flex;
-    border: solid 1px white;
+
 }
 
 .div_house_left{
-    border: solid 1px red;
     width: 25%;
 }
 
@@ -43,18 +51,12 @@ body{
      width:100%;
 }
 
-
-
-.div_house_image_left{
-    border: solid 2px #F7760B;
-}
-
 h1 {
     color:#F7760B;
 }
 
 a{
-    color: #0A5411;
+    color: #F7760B;
 }
 
 .img_medium {
