@@ -16,6 +16,8 @@ class NewVisitorTest(unittest.TestCase):
 
         # He notices that the game has a "Test Tribe Home" word in the title
         self.assertIn('Tribe Home', self.browser.title)
+
+
         # self.fail('Finish the test')
 
 

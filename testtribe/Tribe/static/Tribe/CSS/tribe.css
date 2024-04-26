@@ -16,6 +16,11 @@ p{
     color:#F7760B
 }
 
+.p_credits{
+    display:flex;
+    flex-direction:row;
+}
+
 .header_img {
     width: 100%;
  }

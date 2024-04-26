@@ -5,5 +5,5 @@ def homepage(request):
     return render(request, 'Tribe/homepage.html')
 
 
-def img_credits(request):
-    return render(request, 'Tribe/credits.html')
+def story(request):
+    return render(request, 'Tribe/story.html')

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{% static 'Tribe/CSS/tribe.css' %}">
-    <link rel="icon" type="image/svg+xml" href="{% static 'Tribe/IMG/Goats/ram-ico.svg' %}">
+    <link rel="icon" type="image/svg+xml" href="{% static 'Tribe/IMG/Goats/logo_raw_cut.svg' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
 
@@ -13,7 +13,7 @@
 {% block header_image %} {% endblock %}
 <nav>
     <a href="{% url 'homepage' %}">Homepage</a>
-    <a href="{% url 'img_credits' %}">Images Credits</a>
+    <a href="{% url 'story' %}">The Story</a>
 
 </nav>
 {% block body %}{% endblock %}
