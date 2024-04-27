@@ -1,5 +1,6 @@
 from selenium import webdriver
-from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+import time
 import unittest
 
 
@@ -14,11 +15,17 @@ class NewVisitorTest(unittest.TestCase):
         # David has heard about this new cool game. He goes to check out it's homepage
         self.browser.get('http://localhost:8000')
 
-        # He notices that the game has a "Test Tribe Home" word in the title
+        # He notices that the game has a "Tribe Home" word in the title
         self.assertIn('Tribe Home', self.browser.title)
 
+        # He also notices that the title of the page asks him what is his name
+        # below, there is a logo of a goat
+        # and below that there is a text box that says 'your name'
+        # he enters his name and presses enter and the greeting message changes to his name
+        # and the name field dissapears
 
-        # self.fail('Finish the test')
+
+        self.fail('Test is not finished, finish the test')
 
 
 if __name__ == '__main__':
