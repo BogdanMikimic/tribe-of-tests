@@ -7,3 +7,7 @@ def homepage(request):
 
 def story(request):
     return render(request, 'Tribe/story.html')
+
+
+def my_notes(request):
+    return render(request, 'Tribe/my_notes.html')

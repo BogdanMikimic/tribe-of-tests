@@ -12,9 +12,9 @@
 <body>
 {% block header %} {% endblock %}
 <nav>
-    <a href="{% url 'homepage' %}">Homepage</a>
-    <a href="{% url 'story' %}">The Story</a>
-
+    <a class="a_nav" href="{% url 'homepage' %}">Homepage</a>
+    <a class="a_nav" href="{% url 'story' %}">The Story</a>
+    <a class="a_nav" href="{% url 'my_notes' %}">My Notes</a>
 </nav>
 {% block body %}{% endblock %}
 {% block bottom %}{% endblock %}

@@ -1,7 +1,8 @@
 /* #0A5411 green */
 /* #F7760B orange */
+/* #f7cc0b yellow/*
 
-/* #d2602d other orange */
+/* #d2602d dark orange goat logo */
 
 /* Re setter */
 
@@ -10,6 +11,7 @@
     padding:0;
     box-sizing: border-box;
 }
+
 
 body{
   background-image: url('../IMG/Tiles/jungle_tile_dark2_blur.jpg');
@@ -22,10 +24,10 @@ body{
   align-items: center;
 }
 
-@keyframes appear_all{
+/* @keyframes appear_all{
  0% {opacity:0;} 
 100% {opacity:1;}
-}
+} */
 
 
 .img_logo {
@@ -40,14 +42,52 @@ h1 {
     animation-name: appear_all;
     animation-duration: 10s;
     animation-timing-function: ease-in;
+}
+
+
+nav {
+    display: flex;
+    width:100vw;
+}
+
+.a_nav{
+    font-size:150%;
+    color: #F7760B;
+    border: solid 1px #F7760B;
+    border-radius: 8px;
+    text-decoration: none;
+    margin: 0.5%;
+    padding:0.2%;
+    transition: 0.7s ease;
 
 }
 
-a{
-    color: #F7760B;
-    animation-name: appear_all;
-    animation-duration: 10s;
-    animation-timing-function: ease-in;
+.a_nav:hover {
+    color: #f7cc0b;
+    border: solid 1px #f7cc0b;
+    border-radius: 8px;
+    transform: translateY(+3px);
+    box-shadow: 0px 0px 9px;
+}
+
+.a_nav:active{
+    background:#d2602d ;
+    color: #f7cc0b;
+    border: solid 1px #f7cc0b;
+    border-radius: 8px;
+    transform: translateY(-1px);
+}
+
+.img_homepage_house{
+     width:100%;
+     opacity: 0.5;
+     transition: 0.7s ease;
+
+}
+
+.img_homepage_house:hover {
+    transform: scale(1.05);
+    opacity: 1;
 }
 
 .header{
@@ -102,9 +142,7 @@ p{
     width: 75%;
 }
 
-.img_homepage_house{
-     width:100%;
-}
+
 
 
 .img_medium {
