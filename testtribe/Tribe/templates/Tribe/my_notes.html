@@ -4,5 +4,13 @@
 {% block body %}
 
 <h1>My Journey Notes</h1>
-
+<div class="div_center">
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="item_text" id="new_note_field" placeholder="Enter a new note">
+    </form>
+    <table id="table_of_notes">
+        <tr></tr>
+    </table>
+</div>
 {% endblock %}
