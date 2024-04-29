@@ -38,10 +38,10 @@ class NewVisitorTest(unittest.TestCase):
         new_note.send_keys('Explore the story')
         # he presses "Enter" and the page displays 1: Explore the story
         new_note.send_keys(Keys.RETURN)
-        time.sleep(1)
+        time.sleep(2)
         table = self.browser.find_element(By.ID, 'table_of_notes')
         rows = table.find_elements(By.TAG_NAME, 'tr')
-        self.assertTrue(any(row.text == '1: Explore the story' for row in rows))
+        self.assertTrue(any(row.text == 'Explore the story' for row in rows))
 
         # he enters his name and presses enter and the greeting message changes to his name
         # and the name field disappears

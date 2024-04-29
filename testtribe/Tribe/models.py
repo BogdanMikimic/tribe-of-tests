@@ -2,7 +2,7 @@ from django.db import models
 
 
 # Create your models here.
-class Note(models.Model):
+class Notes(models.Model):
     """
     Creates user notes for the user
     """

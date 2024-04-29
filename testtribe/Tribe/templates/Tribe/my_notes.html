@@ -9,8 +9,13 @@
         {% csrf_token %}
         <input type="text" name="item_text" id="new_note_field" placeholder="Enter a new note">
     </form>
+    <p>Method={{method}}</p>
     <table id="table_of_notes">
-        <tr></tr>
+        {% for note in existing_notes %}
+            <tr class="table_row">
+                <td  class="table_data">{{note.text}}</td>
+            </tr>
+        {% endfor %}
     </table>
 </div>
 {% endblock %}

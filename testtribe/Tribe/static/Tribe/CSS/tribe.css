@@ -134,16 +134,18 @@ p{
 
 }
 
-.div_house_left{
+.div_house_left {
     width: 25%;
 }
 
-.div_data_right{
+.div_data_right {
     width: 75%;
 }
 
 
-
+.table_data {
+    color:#F7760B;
+}
 
 .img_medium {
     width: 64px;
