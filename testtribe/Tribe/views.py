@@ -17,5 +17,6 @@ def my_notes(request):
         entry.text = my_text
         entry.save()
         return redirect(request.path)
+
     existing_notes = Notes.objects.all()
     return render(request, 'Tribe/my_notes.html', {'existing_notes': existing_notes, 'method': method})
