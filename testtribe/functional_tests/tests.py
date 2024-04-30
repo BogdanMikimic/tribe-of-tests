@@ -2,16 +2,36 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import WebDriverException
 import time
+
 import unittest
 
-
+maximum_wait_time = 10  # wait for maximum 10 seconds
 class NewVisitorTest(StaticLiveServerTestCase):
     def setUp(self) -> None:  # This code runs once BEFORE EACH test
         self.browser = webdriver.Firefox()
 
     def tearDown(self) -> None:  # This code runs once AFTER EACH test
         self.browser.quit()
+
+    def wait_for_row_in_list_table(self, row_text):
+        """
+        Either finishes the test early if it passes, or waits the full 10 seconds
+        """
+
+        start_time = time.time()
+        while True:
+            try:
+                table = self.browser.find_element(By.ID, 'table_of_notes')
+                rows = table.find_elements(By.TAG_NAME, 'tr')
+                self.assertIn(row_text, [row.text for row in rows])
+                return
+            except (AssertionError, WebDriverException) as e:
+                if time.time() - start_time > maximum_wait_time:
+                    raise e
+                time.sleep(0.5)
+
 
     def test_can_start_a_list_and_retrieve_it_later(self):  # this is a test (the name starts with test_)
         # David has heard about this new cool game. He goes to check out it's homepage
@@ -40,12 +60,11 @@ class NewVisitorTest(StaticLiveServerTestCase):
         # he presses "Enter" and the page displays 1: Explore the story
         new_note.send_keys(Keys.RETURN)
         time.sleep(2)
-        table = self.browser.find_element(By.ID, 'table_of_notes')
-        rows = table.find_elements(By.TAG_NAME, 'tr')
-        self.assertTrue(any(row.text == 'Explore the story' for row in rows))
+        self.wait_for_row_in_list_table('Explore the story')
+        # table = self.browser.find_element(By.ID, 'table_of_notes')
+        # rows = table.find_elements(By.TAG_NAME, 'tr')
+        # self.assertTrue(any(row.text == 'Explore the story' for row in rows))
 
-        # he enters his name and presses enter and the greeting message changes to his name
-        # and the name field disappears
         # Upon checking the pages individually by url, he checks that all the navigation links bring up the page they
         # are designed to do
 
