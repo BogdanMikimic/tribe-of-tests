@@ -1,13 +1,20 @@
 from django.shortcuts import render, redirect
 from Tribe.models import Notes
 
-def homepage(request):
-    return render(request, 'Tribe/homepage.html')
+
+def tribe_village(request):
+    return render(request, 'Tribe/tribe_village.html')
 
 
 def story(request):
     return render(request, 'Tribe/story.html')
 
+
+def workshops(request):
+    return render(request, 'Tribe/workshops.html')
+
+def jungle(request):
+    return render(request, 'Tribe/jungle.html')
 
 def my_notes(request):
     method='GET'

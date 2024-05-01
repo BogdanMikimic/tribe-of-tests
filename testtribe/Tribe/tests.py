@@ -1,5 +1,5 @@
 from django.test import TestCase
-from Tribe.views import homepage, story, my_notes
+from Tribe.views import *
 from Tribe.models import Notes
 
 
@@ -33,9 +33,9 @@ class PagesRenderingTests(TestCase):
 
     def test_homepage_function_returns_the_right_html(self):
         # makes a request at a certain url, goes through the views function and returns a response containing the html
-        response = self.client.get('/')
+        response = self.client.get('/tribe_village')
         # tests what template was used by the function
-        self.assertTemplateUsed(response, 'Tribe/homepage.html')
+        self.assertTemplateUsed(response, 'Tribe/tribe_village.html')
 
     def test_credit_returns_right_html(self):
         response = self.client.get('/story')
@@ -44,6 +44,14 @@ class PagesRenderingTests(TestCase):
     def test_my_notes_function_returns_the_right_webpage(self):
         response = self.client.get('/my_notes')
         self.assertTemplateUsed(response, 'Tribe/my_notes.html')
+
+    def test_workshops_function_returns_the_right_webpage(self):
+        response = self.client.get('/workshops')
+        self.assertTemplateUsed(response, 'Tribe/workshops.html')
+
+    def test_jungle_function_returns_the_right_webpage(self):
+        response = self.client.get('/jungle')
+        self.assertTemplateUsed(response, 'Tribe/jungle.html')
 
     def test_credits_page_form_POST_request_correctly_sends_a_submitted_note_data_to_database(self):
         # Fill in the form with a new note
@@ -60,3 +68,5 @@ class PagesRenderingTests(TestCase):
         self.assertEqual(response.status_code, 302, 'The redirect after the POST request was not performed')
         # check that the redirected page is the initial page url
         self.assertEqual(response['location'], '/my_notes', f'The user was not redirected to the same page "/my_notes"')
+
+    #TODO: check links
