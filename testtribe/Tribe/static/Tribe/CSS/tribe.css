@@ -143,16 +143,25 @@ p{
 }
 
 .div_img_jungle {
-    background-image: url('../IMG/Buildings/jungle_map_with_village.png');
-    background-repeat: cover;
+    background-image: url('../IMG/Tiles/specific_tile.png');
+    background-repeat: repeat;
     background-position: top left;
-    background-size: 100% auto;
-
     height: 98vh;
     width: 98vw;
-    display:flex;
-    border:solid 1px white;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Creates 5 columns, each taking 1 fraction of the available space */
+    grid-template-rows: repeat(5, 1fr); /* Creates 5 rows, each 100px high */
+    gap: 10px; /* Sets a gap of 10px between each grid item */
+}
 
+.grid-item {
+  display: flex;
+  justify-content: center; /* Centers content horizontally */
+  align-items: center; /* Centers content vertically */
+  font-size: 20px; /* Sets font size of the numbers inside rectangles */
+  color: white; /* Text color */
+  border: dashed 1px #F7760B;
+  height
 }
 
 .table_data {
