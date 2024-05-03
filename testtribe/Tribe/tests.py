@@ -1,6 +1,9 @@
 from django.test import TestCase
+from django.core.files.uploadedfile import SimpleUploadedFile
 from Tribe.views import *
-from Tribe.models import Notes
+from Tribe.models import Notes, Resources
+from datetime import datetime
+from decimal import Decimal
 
 
 class DatabaseTests(TestCase):
@@ -27,6 +30,37 @@ class DatabaseTests(TestCase):
         # check that they contain the right data
         self.assertEqual(saved_items[0].text, 'The first (ever) note!')
         self.assertEqual(saved_items[1].text, 'Note the second')
+
+    def test_saving_receiving_and_modifying_data_from_the_resources_table(self):
+        # Create an image file
+        image = SimpleUploadedFile("Tribe/IMG/TestImages/test_image.png", b"file_content", content_type="image/png")
+        # create a database record - a fictitious resource called wook
+        new_resource = Resources()
+        new_resource.resource_name = 'wool'
+        new_resource.resource_image = image
+        new_resource.max_storage_capacity = Decimal('42.53')
+        new_resource.stored_resource_quantity = Decimal('35.12')
+        new_resource.stored_resource_quantity_at_time = datetime.now()
+        new_resource.production_per_second = Decimal('0.05')
+        new_resource.consumption_per_second = Decimal('0.02')
+        new_resource.net_production_per_second = Decimal('0.03')
+        new_resource.one_unit_weight = Decimal('2.00')
+        # save the object
+        new_resource.save()
+        # check the object is saved correctly
+        saved_object = Resources.objects.latest('resource_name')
+        self.assertIsNotNone(saved_object, 'There is no object instance saved in the database')
+        self.assertEqual(saved_object.resource_name, 'wool', 'The name of the resource is not "wool"')
+        self.assertTrue(saved_object.resource_image, 'There is no saved image')
+        print('my stored value', saved_object.max_storage_capacity)
+        self.assertEqual(saved_object.max_storage_capacity, Decimal('42.53'), 'The saved value for the max storage is not 42.53')
+        self.assertEqual(saved_object.stored_resource_quantity, Decimal('35.12'), 'The saved value for the stored qty is not 35.12')
+        self.assertTrue(saved_object.stored_resource_quantity_at_time, 'There is no time object saved')
+        self.assertEqual(saved_object.production_per_second, Decimal('0.05'), 'The saved value for prod per sec is not 0.05')
+        self.assertEqual(saved_object.consumption_per_second, Decimal('0.02'), 'The saved value for consumption per sec is not 0.02')
+        self.assertEqual(saved_object.net_production_per_second, Decimal('0.03'), 'The saved value for net prod per sec is not 0.05')
+        self.assertEqual(saved_object.one_unit_weight, Decimal('2.00'), 'The saved value for unit weight is not 2.00')
+
 
 
 class PagesRenderingTests(TestCase):
