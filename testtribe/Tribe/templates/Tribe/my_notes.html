@@ -1,6 +1,16 @@
 {% extends 'Tribe/base.html' %}
 {% load static %}
 {% block title %}My Notes{% endblock %}
+
+{% block stats %}
+  {% for stat in stats %}
+    <div title="{{ stat.resource_name }}" class="div_indiv_resource_stats">
+      <p id="stats_value"> {{stat.stored_resource_quantity}}</p>
+      <img class="img_stat_icon" src="{{ stat.resource_image.url }}">
+    </div>
+  {% endfor %}
+{% endblock %}
+
 {% block body %}
 
 <h1>My Journey Notes</h1>

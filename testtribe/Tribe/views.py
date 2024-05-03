@@ -1,23 +1,27 @@
 from django.shortcuts import render, redirect
-from Tribe.models import Notes
+from Tribe.models import Notes, Resources
 
 
 def tribe_village(request):
-    return render(request, 'Tribe/tribe_village.html')
+    stats = Resources.objects.all()
+    return render(request, 'Tribe/tribe_village.html', {'stats': stats})
 
 
 def story(request):
-    return render(request, 'Tribe/story.html')
+    stats = Resources.objects.all()
+    return render(request, 'Tribe/story.html', {'stats': stats})
 
 
 def workshops(request):
-    return render(request, 'Tribe/workshops.html')
+    stats = Resources.objects.all()
+    return render(request, 'Tribe/workshops.html', {'stats': stats})
 
 def jungle(request):
-    return render(request, 'Tribe/jungle.html')
+    stats = Resources.objects.all()
+    return render(request, 'Tribe/jungle.html', {'stats': stats})
 
 def my_notes(request):
-    method='GET'
+    stats = Resources.objects.all()
     if request.method == 'POST':
         my_text = request.POST.get('item_text')
         entry = Notes()
@@ -26,4 +30,4 @@ def my_notes(request):
         return redirect(request.path)
 
     existing_notes = Notes.objects.all()
-    return render(request, 'Tribe/my_notes.html', {'existing_notes': existing_notes, 'method': method})
+    return render(request, 'Tribe/my_notes.html', {'existing_notes': existing_notes, 'stats': stats})
