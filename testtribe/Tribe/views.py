@@ -1,5 +1,41 @@
 from django.shortcuts import render, redirect
 from Tribe.models import Notes, Resources
+from decimal import Decimal
+
+
+def individual_stock_increase_decrease(my_resource_name: str, neg_or_pos_value_modif: int | float) -> None:
+    """
+    Increases or decreases the value of a stored resource.
+    It increases up to maximum allowed qty, but no more. If more is provided, stops at max quantity.
+    It decreases the quantity to zero, but does not go under.
+    DO NOT use it for purchases, because if there is not enough stored to match the price, it decreases the quantity
+    all the way to zero and saves it as zero
+    :param my_resource_name: Resource name as string
+    :param neg_or_pos_value_modif: value to decrease or increase the stock with (takes positive or negative values)
+    :return: None
+    """
+    resource = Resources.objects.filter(resource_name=my_resource_name).get()
+    if (resource.stored_resource_quantity + Decimal(neg_or_pos_value_modif)) >= resource.max_storage_capacity:
+        resource.stored_resource_quantity = resource.max_storage_capacity
+    elif (resource.stored_resource_quantity + Decimal(neg_or_pos_value_modif)) < 0:
+        resource.stored_resource_quantity = 0
+    else:
+        resource.stored_resource_quantity += Decimal(neg_or_pos_value_modif)
+    resource.save()
+
+def individual_purchase_charge(my_resource_name: str, required_quantity):
+    """
+    Charges one of the resources (decreases the existing quantity)
+    :param my_resource_name: Resource name as string
+    :param required_quantity: Value to decrease existing quantity with
+    :return: True if the transaction went through
+    """
+    resource = Resources.objects.filter(resource_name=my_resource_name).get()
+    if (resource.stored_resource_quantity - Decimal(required_quantity)) < 0:
+        return f'Not enough {my_resource_name}'
+    else:
+        individual_stock_increase_decrease(my_resource_name, -required_quantity)
+        return True
 
 
 def tribe_village(request):
