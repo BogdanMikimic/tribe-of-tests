@@ -68,6 +68,11 @@ class DatabaseTests(TestCase):
         # TODO: implement deletion of the test image
 
         # test the increase or decrease of stocked units function
+        # reduces the net_production_per_second to zero to not mess with stock decrease/increase calculations
+        saved_object.production_per_second = Decimal('0')
+        saved_object.consumption_per_second = Decimal('0')
+        saved_object.net_production_per_second = Decimal('0')
+        saved_object.save()
         # Test normal increase (not over max)
         individual_stock_increase_decrease('wool', 5)
         latest_saved_object = Resources.objects.latest('resource_name')
@@ -114,6 +119,25 @@ class DatabaseTests(TestCase):
         self.assertEqual(latest_saved_object.stored_resource_quantity,
                          Decimal('10.00'),
                          'Purchase approved the transaction for more resources than I have (value test)')
+
+        # test the update value in the database function
+        # set net growth to 0.03 per second and stored value is 10.00
+        latest_saved_object.production_per_second = Decimal('0.05')
+        latest_saved_object.consumption_per_second = Decimal('0.02')
+        latest_saved_object.net_production_per_second = Decimal('0.03')
+        latest_saved_object.save()
+        # wait 10 seconds (it takes some time to run previous tests like 0.04 sec)
+        time.sleep(10)
+        calculate_and_update_value_in_database('wool')
+        # test the value "in the wild"
+        # should be at least 10.30, depending on how much the test before took
+        latest_saved_object = Resources.objects.latest('resource_name')
+        self.assertGreaterEqual(latest_saved_object.stored_resource_quantity,
+                           Decimal('10.30'),
+                           'The update value function is under what it should')
+        self.assertLess(latest_saved_object.stored_resource_quantity,
+                           Decimal('10.35'),
+                           'The update function is over what it should')
 
 
 
