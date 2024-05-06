@@ -2,11 +2,13 @@ from django.shortcuts import render, redirect
 from Tribe.models import Notes, Resources
 from decimal import Decimal
 from datetime import datetime
+from django.views.decorators.http import require_POST
 
 
 def calculate_and_update_value_in_database(my_resource_name: str):
     """
-    Updates the
+    Takes the current time and the latest time the value was saved at and calculates,
+    then updates the values in the
     :param my_resource_name:
     :return:
     """
@@ -43,6 +45,7 @@ def individual_stock_increase_decrease(my_resource_name: str, neg_or_pos_value_m
         resource.stored_resource_quantity += Decimal(neg_or_pos_value_modif)
     resource.save()
 
+
 def individual_purchase_charge(my_resource_name: str, required_quantity):
     """
     Charges one of the resources (decreases the existing quantity)
@@ -73,9 +76,11 @@ def workshops(request):
     stats = Resources.objects.all()
     return render(request, 'Tribe/workshops.html', {'stats': stats})
 
+
 def jungle(request):
     stats = Resources.objects.all()
     return render(request, 'Tribe/jungle.html', {'stats': stats})
+
 
 def my_notes(request):
     stats = Resources.objects.all()
@@ -88,3 +93,10 @@ def my_notes(request):
 
     existing_notes = Notes.objects.all()
     return render(request, 'Tribe/my_notes.html', {'existing_notes': existing_notes, 'stats': stats})
+
+
+def buy_ape(request):
+    apes = Resources.objects.filter(resource_name='Population').get()
+    apes.stored_resource_quantity += Decimal('1')
+    apes.save()
+    return redirect('tribe_village')

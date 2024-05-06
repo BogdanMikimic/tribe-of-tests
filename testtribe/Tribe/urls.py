@@ -7,5 +7,8 @@ urlpatterns = [
     path('story', story, name='story'),
     path('workshops', workshops, name='workshops'),
     path('jungle', jungle, name='jungle'),
-    path('my_notes', my_notes, name='my_notes')
+    path('my_notes', my_notes, name='my_notes'),
+
+    # buy
+    path('buy_ape', buy_ape, name='buy_ape'),
 ]

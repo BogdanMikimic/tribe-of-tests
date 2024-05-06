@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{% static 'Tribe/CSS/tribe.css' %}">
     <link rel="icon" type="image/svg+xml" href="{% static 'Tribe/IMG/Goats/logo_raw_cut.svg' %}">
-    <link rel="stylesheet" href="https://pyscript.net/releases/2024.4.1/core.css" />
-    <script type="module" src="https://pyscript.net/releases/2024.4.1/core.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block pyscript %} {% endblock %}
     <title>{% block title %}{% endblock %}</title>
 
 </head>
@@ -29,6 +28,6 @@
 
 {% block body %}{% endblock %}
 {% block bottom %}{% endblock %}
-{% block bottom_pyscript %}<script type="py"></script>{% endblock %}
+
 </body>
 </html>
