@@ -17,10 +17,14 @@
 {% block stats %}
   {% for stat in stats %}
     <div title="{{ stat.resource_name }}" class="div_indiv_resource_stats">
-      <p id="stats_value"> {{stat.stored_resource_quantity}}</p>
+      <p class="stats_value"> {{stat.stored_resource_quantity}}</p>
       <img class="img_stat_icon" src="{{ stat.resource_image.url }}">
     </div>
   {% endfor %}
+    <div title="Apes" class="div_indiv_resource_stats">
+      <p class="stats_value"> {{apes_count}}</p>
+      <img class="img_stat_icon" src="{% static 'Tribe/IMG/Apes/worker_cut.png' %}">
+    </div>
 {% endblock %}
 
 {% block body %}
@@ -37,7 +41,7 @@
         </div>
         <div class="div_data_right">
             <p>Data</p>
-            <a href="{% url 'buy_ape' %}">+ Get New Ape</a>
+            <a href="{% url 'buy_worker_ape' %}">+ Get New Worker Ape</a>
 
 
          </div>

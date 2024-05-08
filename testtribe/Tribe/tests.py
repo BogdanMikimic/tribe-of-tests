@@ -139,6 +139,43 @@ class DatabaseTests(TestCase):
                            Decimal('10.35'),
                            'The update function is over what it should')
 
+        # check multiple expenses function
+        # set wool to know values
+        latest_saved_object.production_per_second = Decimal('0')
+        latest_saved_object.consumption_per_second = Decimal('0')
+        latest_saved_object.net_production_per_second = Decimal('0')
+        latest_saved_object.stored_resource_quantity = Decimal('10')
+        latest_saved_object.save()
+        # create a new resource besides called milk
+        new_resource = Resources()
+        new_resource.resource_name = 'milk'
+        new_resource.resource_image = image
+        new_resource.max_storage_capacity = Decimal('100')
+        new_resource.stored_resource_quantity = Decimal('20')
+        new_resource.stored_resource_quantity_at_time = datetime.now()
+        new_resource.production_per_second = Decimal('0')
+        new_resource.consumption_per_second = Decimal('0')
+        new_resource.net_production_per_second = Decimal('0')
+        new_resource.one_unit_weight = Decimal('2.00')
+        # save the object
+        new_resource.save()
+
+        # make a list of expenses that should return that there is not enough wool
+        expenses = [('wool', 20), ('milk', 6)]
+        self.assertEqual(purchase_with_multiple_resources_costs(expenses), 'Not enough wool')
+        # make a list with a high price for milk
+        expenses = [('wool', 10), ('milk', 30)]
+        self.assertEqual(purchase_with_multiple_resources_costs(expenses), 'Not enough milk')
+        # make a list that should pass
+        expenses = [('wool', 5), ('milk', 6)]
+        self.assertIsNone(purchase_with_multiple_resources_costs(expenses))
+        # check that the wool quantity decreased to 5.35
+        current_wool = Resources.objects.filter(resource_name='wool').get()
+        self.assertEqual(current_wool.stored_resource_quantity, Decimal('5'))
+        # check that the wool quantity decreased to 14
+        current_milk = Resources.objects.filter(resource_name='milk').get()
+        self.assertEqual(current_milk.stored_resource_quantity, Decimal('14'))
+
 
 
 

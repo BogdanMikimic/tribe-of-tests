@@ -75,7 +75,7 @@ h1 {
     margin-right: 0.5rem;
 }
 
-#stats_value{
+.stats_value{
     font-size:2rem;
     margin-left: 0.5rem;
     margin-right: 0.5rem;

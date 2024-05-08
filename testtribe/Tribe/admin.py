@@ -1,5 +1,5 @@
 from django.contrib import admin
-from Tribe.models import Notes, Resources
+from Tribe.models import *
 # Register your models here.
 
 
@@ -15,3 +15,16 @@ class ResourcesAdmin(admin.ModelAdmin):
     search_fields = ('resource_name',)  # Searchable fields
 
 admin.site.register(Resources, ResourcesAdmin)
+
+class ApesAdmin(admin.ModelAdmin):
+    list_display = ('ape_type_name',
+                    'how_many_apes_of_that_type',
+                    'one_ape_milk_consumption_per_second',
+                    'ape_speed',
+                    'ape_carry_capacity',
+                    'ape_attack_value',
+                    'ape_defense_value',
+                    'ape_life')
+    search_fields = ('ape_type_name',)
+
+admin.site.register(Apes, ApesAdmin)

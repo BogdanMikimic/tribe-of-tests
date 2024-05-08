@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from Tribe.models import Notes, Resources
+from Tribe.models import *
 from decimal import Decimal
 from datetime import datetime
 from django.views.decorators.http import require_POST
@@ -46,6 +46,25 @@ def individual_stock_increase_decrease(my_resource_name: str, neg_or_pos_value_m
     resource.save()
 
 
+def purchase_with_multiple_resources_costs(resource_costs: list[tuple]) -> str | None:
+    """
+    Expects a list of tuples with the name of the resource and quantity.
+    Checks if there are enough of all resources to make the purchase.
+    If so, makes the purchase, if not it does not.
+    :param resource_costs:
+    :return:
+    """
+    # check that there are enough resources in the database
+    for resource_and_quantities in resource_costs:
+        resource = Resources.objects.filter(resource_name=resource_and_quantities[0]).get()
+        if (resource.stored_resource_quantity - Decimal(resource_and_quantities[1])) < 0:
+            return f'Not enough {resource_and_quantities[0]}'
+
+    # if there are, make the payments
+    for resource_and_qty in resource_costs:
+        individual_stock_increase_decrease(resource_and_qty[0], -resource_and_qty[1])
+
+
 def individual_purchase_charge(my_resource_name: str, required_quantity):
     """
     Charges one of the resources (decreases the existing quantity)
@@ -64,7 +83,11 @@ def individual_purchase_charge(my_resource_name: str, required_quantity):
 
 def tribe_village(request):
     stats = Resources.objects.all()
-    return render(request, 'Tribe/tribe_village.html', {'stats': stats})
+    apes = Apes.objects.all()
+    apes_count = Decimal('0')
+    for ape in apes:
+        apes_count += ape.how_many_apes_of_that_type
+    return render(request, 'Tribe/tribe_village.html', {'stats': stats, 'apes_count': apes_count})
 
 
 def story(request):
@@ -95,8 +118,10 @@ def my_notes(request):
     return render(request, 'Tribe/my_notes.html', {'existing_notes': existing_notes, 'stats': stats})
 
 
-def buy_ape(request):
-    apes = Resources.objects.filter(resource_name='Population').get()
-    apes.stored_resource_quantity += Decimal('1')
+def buy_worker_ape(request):
+    apes = Apes.objects.filter(ape_type_name='worker').get()
+    # make purchase
+
+    apes.how_many_apes_of_that_type += Decimal('1')
     apes.save()
     return redirect('tribe_village')

@@ -10,5 +10,5 @@ urlpatterns = [
     path('my_notes', my_notes, name='my_notes'),
 
     # buy
-    path('buy_ape', buy_ape, name='buy_ape'),
+    path('buy_worker_ape', buy_worker_ape, name='buy_worker_ape'),
 ]
